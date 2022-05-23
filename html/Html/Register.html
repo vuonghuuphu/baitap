@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Register</h2>
+  <form action="/action_page.php" name="register-froms" >
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+    </div>
+    <div class="form-group">
+        <label for="confimpwd">confimPassword:</label>
+        <input type="password" class="form-control" id="confimpwd" placeholder="Enter confim password" name="confimpwd">
+      </div>
+    <input type="button" name="btn-submit" value="Save">
+    <input type="reset" value="Reset">
+  </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded',function(){
+      var url = 'http://localhost:8080/api/v1/register'
+        document.forms['register-froms'] ['btn-submit'].onclick = function(){
+            var username = document.forms['register-froms'] ['username'].value;
+            var Password = document.forms['register-froms'] ['pswd'].value;
+            var ConfimPassword = document.forms['register-froms'] ['confimpwd'].value;
+            if (Password != ConfimPassword){
+                alert("loi")
+                return
+            }
+              var xhr = new XMLHttpRequest();
+              var obj = {
+                "username" : username,
+                "password" : Password
+              }
+              xhr.onreadystatechange= function(){
+                if(xhr.readyState == 4 && xhr.status === 200){
+                  alert("them thanh cong")
+                  window.location.href='Html/Login.html';
+                }
+              }
+              xhr.open('POST',url,false);
+              xhr.setRequestHeader('Content-Type','application/json'),
+              xhr.send(JSON.stringify(obj))
+            }
+        }
+    );
+
+</script>
+
+</body>
+</html>
